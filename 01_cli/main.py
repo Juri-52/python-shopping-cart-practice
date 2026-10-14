@@ -2,7 +2,7 @@ from product import Product
 from cart import Cart
 from catalog import PRODUCTS
 
-def cart_info(cart):
+def cart_info(cart,sum=True):
     if len(cart.items) == 0:
         print("カートは空です")
     else:
@@ -10,7 +10,8 @@ def cart_info(cart):
         for item in cart.items:
             print(f"{index}.{item.name} - {item.price}円")
             index += 1
-    print(f"商品数:{len(cart.items)}点 / 合計: {cart.get_total()}円")
+    if sum:
+        print(f"商品数:{len(cart.items)}点 / 合計: {cart.get_total()}円")
 
 def main():
     products = []
@@ -56,13 +57,13 @@ def main():
             if len(cart.items) == 0:
                 print("カートは空です")
             else:
-                cart_info(cart)
+                cart_info(cart,False)
                 try:
                     selected = int(input("カート番号を入力："))
                 except ValueError:
                     print("エラー：整数を入力してください")
                     continue
-                if selected <= len(cart.items):
+                if selected != 0 and selected <= len(cart.items):
                     cart.remove_product(selected-1)
                     cart_info(cart)
                 else:
