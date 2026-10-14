@@ -1,13 +1,20 @@
 # 商品オブジェクトを受け取り、カートの中身を管理します。
 class Cart:
     def __init__(self):
-        pass
+        self.items = []
 
     def add_product(self, product):
-        pass
+        self.items.append(product)
 
     def remove_product(self, index):
-        pass
+        if 0 <= index < len(self.items):
+            del self.items[index]
+            return True
+        else:
+            return False
 
     def get_total(self):
-        pass
+        total = 0
+        for item in self.items:
+            total += item.price
+        return total
